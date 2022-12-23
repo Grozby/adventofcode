@@ -18,14 +18,16 @@ class Monkey:
         self.monkey_if_true = monkey_if_true
         self.monkey_if_false = monkey_if_false
         self.items_inspected = 0
+        self.gcd = None
 
     def add_item(self, item: int):
         self.items.append(item)
 
-    def items_to_throw(self) -> List[Tuple[int, int]]:
+    def items_to_throw(self, divided_by: float = 3) -> List[Tuple[int, int]]:
         monkey_items = []
         for item in self.items:
-            item = self.operation(item) // 3
+            item = self.operation(item) // divided_by
+            item %= self.gcd
             if item % self.divisible_by == 0:
                 monkey_items.append((self.monkey_if_true, item))
             else:
@@ -70,4 +72,11 @@ def parse_input() -> List[Monkey]:
                 ))
             f.readline()
             f.readline()
+    gcd = 1
+    for m in monkeys:
+        gcd *= m.divisible_by
+
+    for m in monkeys:
+        m.gcd = gcd
+
     return monkeys
