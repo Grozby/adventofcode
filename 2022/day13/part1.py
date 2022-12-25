@@ -1,21 +1,4 @@
-from utils import parse_input
-
-
-def check_pairs(p1, p2) -> int:
-    if isinstance(p1, int) and isinstance(p2, int):
-        return p1 - p2
-
-    if isinstance(p1, list) and isinstance(p2, int):
-        p2 = [p2]
-    if isinstance(p1, int) and isinstance(p2, list):
-        p1 = [p1]
-
-    for x1, x2 in zip(p1, p2):
-        if (r := check_pairs(x1, x2)) != 0:
-            return r
-
-    return len(p1) - len(p2)
-
+from utils import parse_input, check_pairs
 
 if __name__ == "__main__":
 
